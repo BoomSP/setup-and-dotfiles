@@ -12,15 +12,15 @@ chrome_deb=$(echo "${chrome_url}" | rev | cut -d'/' -f 1 | rev)
 
 # Dependency
 sudo apt install -y libu2f-udev
-wget "${chrome_url}" ~/Downloads/"$chrome_deb"
-sudo dpkg -i ~/Downloads/"$chrome_deb"
+wget "${chrome_url}" ~/Downloads/"${chrome_deb}"
+sudo dpkg -i ~/Downloads/"${chrome_deb}"
 rm "${chrome_deb}"
 echo "[+] Google Chrome Installed"
 
 # Unzip rockyou.txt
 echo "[ ] Prepare rockyou.txt"
 rockyou_path="/usr/share/wordlists/rockyou.txt.gz"
-gzip -d "${rockyou_path}"
+sudo gzip -d "${rockyou_path}"
 
 # Seclists Installation
 echo "[ ] Install seclists"
@@ -39,8 +39,8 @@ sudo apt install -y openssh-server
 # Install pip2
 pip2_url="https://bootstrap.pypa.io/pip/2.7/get-pip.py"
 pip2_py=$(echo "${pip2url}" | rev | cut -d'/' -f 1 | rev)
-wget "${pip2_url}" ~/Downloads/
-sudo python2 "${pip2_py}"
+wget "${pip2_url}" ~/Downloads/"${pip2_py}"
+sudo python2 ~/Downloads/"${pip2_py}"
 pip2 install --upgrade setuptools
 sudo apt-get install -y python-dev
 
@@ -67,13 +67,16 @@ mkdir ~/tools
 # Get ysoserial
 ysoserial_url="https://github.com/frohoff/ysoserial/releases/download/v0.0.6/ysoserial-all.jar"
 ysoserial_jar=$(echo "${ysoserial_url}" | rev | cut -d'/' -f 1 | rev)
-wget "${ysoserial_url}" ~/tools
-mv "$ysoserial_jar" ysoserial.jar
+wget "${ysoserial_url}" ~/tools/"${ysoserial_jar}"
+mv ~/tools/"$ysoserial_jar" ~/tools/ysoserial.jar
+
+# Setup minimal nvim
+nvim_init_url="https://raw.githubusercontent.com/BoomSP/setup-and-dotfiles/main/init.nvim"
+wget "${nvim_init_url}" ~/.config/nvim/init.nvim
 
 sudo apt -y autoremove
 
 echo "[!] For Hyper-V need to install Enhanced Session Mode by $ kali-tweaks"
 echo "[!] On PowerShell as admin: PS> Set-VM $(hostname) -EnhancedSessionTransportType HVSocket"
-
 # Docker needs user to logout and login again
 echo "[!] Please logout and login again"
