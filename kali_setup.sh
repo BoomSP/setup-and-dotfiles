@@ -38,11 +38,11 @@ sudo apt install -y openssh-server
 
 # Install pip2
 pip2_url="https://bootstrap.pypa.io/pip/2.7/get-pip.py"
-pip2_py=$(echo "${pip2url}" | rev | cut -d'/' -f 1 | rev)
+pip2_py=$(echo "${pip2_url}" | rev | cut -d'/' -f 1 | rev)
 wget -O ~/Downloads/"${pip2_py}" "${pip2_url}"
 sudo python2 ~/Downloads/"${pip2_py}"
 pip2 install --upgrade setuptools
-sudo apt-get install -y python-dev
+sudo apt-get install -y python2.7-dev
 rm ~/Downloads/"${pip2_py}
 
 sudo apt install -y openjdk-11-jdk
