@@ -27,36 +27,32 @@ echo "[ ] Install seclists"
 sudo apt install -y seclists
 
 # Neovim Installation
+echo "[ ] Install Neovim"
+echo "[ ] Vim will trigger Neovim instead"
 sudo apt install -y neovim
 echo "alias vim=\"nvim\"" | tee -a ~/.zshrc
 source ~/.zshrc
 git config --global core.editor nvim
 
+echo "Install tools"
 sudo apt install -y feroxbuster
 sudo apt install -y npm
 sudo apt install -y openssh-server
-
-# Install pip2
-pip2_url="https://bootstrap.pypa.io/pip/2.7/get-pip.py"
-pip2_py=$(echo "${pip2_url}" | rev | cut -d'/' -f 1 | rev)
-wget -O ~/Downloads/"${pip2_py}" "${pip2_url}"
-sudo python2 ~/Downloads/"${pip2_py}"
-pip2 install --upgrade setuptools
-sudo apt-get install -y python2.7-dev
-rm ~/Downloads/"${pip2_py}
-
 sudo apt install -y openjdk-11-jdk
 
 # Metasploit
+echo "[ ] Setup Metasploit"
 sudo msfdb init
 sudo systemctl enable postgresql
 
+echo "[ ] Setup Neo4j and BloodHound"
 sudo apt install -y neo4j
 sudo neo4j start
 echo "[!] Please set up Neo4j password by yourself"
 sudo apt install -y bloodhound
 
 # Docker Installation
+echo "Install Docker"
 sudo apt install -y docker.io
 sudo systemctl enable docker --now
 
@@ -76,6 +72,15 @@ mv ~/tools/"$ysoserial_jar" ~/tools/ysoserial.jar
 nvim_init_url="https://raw.githubusercontent.com/BoomSP/setup-and-dotfiles/main/init.nvim"
 mkdir -p ~/.config/nvim
 wget -O ~/.config/nvim/init.vim "${nvim_init_url}"
+
+# Install pip2
+pip2_url="https://bootstrap.pypa.io/pip/2.7/get-pip.py"
+pip2_py=$(echo "${pip2_url}" | rev | cut -d'/' -f 1 | rev)
+wget -O ~/Downloads/"${pip2_py}" "${pip2_url}"
+sudo python2 ~/Downloads/"${pip2_py}"
+pip2 install --upgrade setuptools
+sudo apt install -y python2.7-dev
+rm ~/Downloads/"${pip2_py}"
 
 sudo apt -y autoremove
 
